@@ -202,4 +202,11 @@ graph_7c <- rdplot(y=ma.rd6$mkt_share, x=ma.rd6$score3, binselect = "es",
                    y.label="Market Share", masspoints="off")
 
 graph_7c
+
+#question9
+summary1 <- ma.rd6 %>% filter(score1>-0.25 & score1<0.25)
+
+summary1$above <- ifelse(sum1$score1 > 0, 1,0 )
+
+tab9 <- summary1 %>% group_by(above) %>% summarize(prop_partd = mean(partd == "Yes"))
 save.image("Hw4_workspace.Rdata")
