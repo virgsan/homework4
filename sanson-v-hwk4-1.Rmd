@@ -1,0 +1,128 @@
+---
+title: "ECON 470 Homework 4"
+author: "Virginia Sanson"
+output: pdf_document
+date: "2023-04-02"
+---
+
+```{r , include=FALSE}
+load("Hw4_workspace.Rdata")
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(tidyverse, ggplot2, dplyr, lubridate, stringr, readxl, data.table, gdata, scales,
+               kableExtra)
+```
+
+\newpage
+\noindent Question 1
+
+```{r , include=FALSE}
+
+q1.plot
+
+```
+Do you think that the number of plans is sufficient, too few, or too many?
+
+\newpage
+\noindent Question 2
+
+```{r , include=FALSE}
+
+q2.plot
+
+```
+
+How has this distribution changed over time?
+
+\newpage
+\noindent Question 3
+
+```{r , include=FALSE}
+
+q3.plot
+
+```
+How much has the average benchmark payment risen over the years?
+
+\newpage
+\noindent Question 4
+
+```{r , include=FALSE}
+
+q4_plot
+
+```
+Has Medicare Advantage increased or decreased in popularity? How does this share correlate with benchmark payments?
+
+\newpage
+\noindent Question 5
+
+```{r, include=FALSE}
+
+print(table(final.data.2009$star_rating_category))
+
+```
+
+```{r , include=FALSE}
+
+print(table_5)
+
+```
+
+\newpage
+\noindent Question 6
+
+```{r , include=FALSE}
+
+summary(regression6_1)
+summary(regression6_2)
+summary(regression6_3)
+
+```
+
+\newpage
+\noindent Question 7
+
+```{r , include=FALSE}
+
+q2.plot
+
+```
+How sensitive are your findings to the choice of bandwidth?
+
+\newpage
+\noindent Question 8
+
+```{r , include=FALSE}
+
+graph_7a
+
+```
+
+```{r , include=FALSE}
+
+graph_7b
+
+```
+
+```{r , include=FALSE}
+
+graph_7c
+
+```
+In other words, look at the distribution of the running variable before and after the relevent threshold values. What do you find?
+
+\newpage
+\noindent Question 9
+
+```{r , include=FALSE}
+
+
+
+```
+
+\newpage
+\noindent Question 10
+
+Summarize your findings from 1-5. What is the effect of increasing a star rating on enrollments? Briefly explain your results.
+
