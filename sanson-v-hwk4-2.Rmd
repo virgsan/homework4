@@ -1,0 +1,183 @@
+---
+title: "Homework 4"
+author: "Virginia Sanson"
+date: "4 April 2023"
+output:
+  pdf_document:
+    toc: no
+  bookdown::pdf_document2:
+    fig_caption: yes
+    toc: no
+header-includes: \usepackage{booktabs}
+---
+```{r , include=FALSE}
+load("Hw4_workspace.Rdata")
+load("4_workspace.Rdata")
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(tidyverse, ggplot2, dplyr, lubridate, stringr, readxl, data.table, gdata, scales,
+               kableExtra, rdrobust)
+library(rdrobust)
+```
+
+\newpage
+\noindent Question 1
+
+```{r}
+
+q1.plot
+
+```
+These ranges of plan counts seems sufficient - I assumed plans would be in the 20-50 range. 
+
+\newpage
+\noindent Question 2
+
+```{r}
+
+q2.plot
+
+```
+
+Over time, the distribution of higher star ratings (ratings of 4-5) has increased. Over the years, there are fewer low ratings and a higher concentration of high ratings. 
+
+\newpage
+\noindent Question 3
+
+```{r}
+
+avg.benchmark
+
+```
+Over the years, the average benchmark payment has risen and dipped,overall decreasing to ~$780. 
+
+\newpage
+\noindent Question 4
+
+```{r}
+
+ma.share
+
+```
+The share of Medicare Advantage has increased in popularity, gradually increasing from 2008 to 2015. This inversely correlates with the benchmark payments. 
+
+\newpage
+\noindent Question 5
+
+```{r}
+
+print(table(final.data.2009$star_rating_category))
+
+```
+
+\newpage
+\noindent Question 6
+
+```{r}
+
+regression6_1
+
+```
+
+```{r , include=FALSE}
+
+regression6_2
+
+```
+
+```{r , include=FALSE}
+
+regression6_3
+
+```
+
+\newpage
+\noindent Question 7
+
+```{r , include=FALSE}
+
+rdrobust(y=ma.rd6$mkt_share, x=ma.rd6$score1, c=0,
+                  h=0.1, p=1, kernel="uniform", vce="hc0",
+                  masspoints="off")
+
+
+```
+
+```{r , include=FALSE}
+
+rdrobust(y=ma.rd6$mkt_share, x=ma.rd6$score1, c=0,
+                  h=0.12, p=1, kernel="uniform", vce="hc0",
+                  masspoints="off")
+
+
+```
+
+```{r , include=FALSE}
+
+rdrobust(y=ma.rd6$mkt_share, x=ma.rd6$score1, c=0,
+                  h=0.13, p=1, kernel="uniform", vce="hc0",
+                  masspoints="off")
+```
+
+```{r , include=FALSE}
+
+rdrobust(y=ma.rd6$mkt_share, x=ma.rd6$score1, c=0,
+                  h=0.14, p=1, kernel="uniform", vce="hc0",
+                  masspoints="off")
+
+```
+
+```{r , include=FALSE}
+
+rdrobust(y=ma.rd6$mkt_share, x=ma.rd6$score1, c=0,
+                  h=0.15, p=1, kernel="uniform", vce="hc0",
+                  masspoints="off")
+
+
+```
+
+The findings are very sensitive to the choice of bandwidth. Even incremental changes in bandwidth result in large changes to the star rating effect on enrollments. Unfortunately, I could not summarize my results in a graph but above are the RD estimator results for the comparisons. 
+\newpage
+\noindent Question 8
+
+```{r}
+
+rdplot(y=ma.rd6$mkt_share, x=ma.rd6$score1, binselect = "es", 
+                   title = "RD Plot: Market Share", x.label="Summary Score", 
+                   y.label="Market Share", masspoints="off")
+
+```
+
+```{r}
+
+rdplot(y=ma.rd6$mkt_share, x=ma.rd6$score1, binselect = "es", 
+                   title = "RD Plot: Market Share", x.label="Summary Score", 
+                   y.label="Market Share", masspoints="off")
+
+```
+
+```{r}
+
+rdplot(y=ma.rd6$mkt_share, x=ma.rd6$score3, binselect = "es", 
+                   title = "RD Plot: Market Share", x.label="Summary Score", 
+                   y.label="Market Share", masspoints="off")
+
+
+```
+The distribution of the running variable before and after the relevant threshold values seems to not change drastically. It was a lor wider before, but I do not believe contracts appear to manipulate the running variable. 
+
+\newpage
+\noindent Question 9
+
+Attempted this code again, with tweaks:
+
+summary1 <- ma.rd6 %>% filter(score1>-0.25 & score1<0.25)
+summary1$above <- ifelse(summary1$score1 > 0, 1,0 )
+tab9 <- summary1 %>% group_by(above) %>% summarize(prop_partd = mean(partd == "Yes"))
+
+However, I predict that plans just above the threshold values would not have different characteristics than contracts just below the threshold values. 
+\newpage
+\noindent Question 10
+
+With my results in ATE 1-4, and predictions for question 5, I predict that increasing star ratings generally lead to increases in enrollments. 
+
